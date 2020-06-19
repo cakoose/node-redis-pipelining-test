@@ -3,21 +3,21 @@
     "version": "0.0.1",
     "description": "Measures some Redis operations.",
     "scripts": {
-        "build": "./node_modules/.bin/tsc",
-        "bench": "./node_modules/.bin/ts-node main.ts"
+        "build": "tsc",
+        "bench": "ts-node main.ts"
     },
     "author": "Kannan Goundan <kannan@cakoose.com>",
     "license": "CC0-1.0",
     "dependencies": {
-        "redis": "^2.8.0"
+        "redis": "^3.0.2"
     },
     "devDependencies": {
-        "@types/node": "^11.11.6",
+        "@types/node": "^14.0.13",
         "@types/redis": "^2.8.13",
-        "@typescript-eslint/eslint-plugin": "^1.12.0",
-        "@typescript-eslint/parser": "^1.9.0",
-        "eslint": "^6.0.1",
-        "ts-node": "8.3.0",
+        "@typescript-eslint/eslint-plugin": "^3.3.0",
+        "@typescript-eslint/parser": "^3.3.0",
+        "eslint": "^7.2.0",
+        "ts-node": "^8.10.2",
         "typescript": "^3.5.3"
     }
 }
