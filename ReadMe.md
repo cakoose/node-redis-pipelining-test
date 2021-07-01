@@ -10,7 +10,7 @@ The results I got suggest that yes, it's better to use a single shared connectio
 
 # To run
 
-1. Download dependencies: `yarn install --frozen-lockfile`
+1. Download dependencies: `yarn install`
 2. Make sure Redis is running.
 3. Run benchmark: `yarn run bench`
 
