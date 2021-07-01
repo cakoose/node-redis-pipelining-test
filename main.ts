@@ -151,7 +151,7 @@ function printSystemInformation(): void {
     console.log(`Node       ${process.versions.node}`);
     console.log(`V8         ${process.versions.v8}`);
     console.log(`OS         ${os.platform()}, ${os.release()}`);
-    console.log(`NPM redis  ${require(`redis/package.json`).version}`);
+    console.log(`NPM redis  ${require(`redis/package.json`).version}`); // eslint-disable-line @typescript-eslint/no-var-requires
 }
 
 const digits = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ';

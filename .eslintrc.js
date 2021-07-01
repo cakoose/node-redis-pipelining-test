@@ -10,7 +10,7 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
     ],
     rules: {
-        '@typescript-eslint/array-type': ['warn', 'generic'],
+        '@typescript-eslint/array-type': ['warn', {default: 'generic'}],
         '@typescript-eslint/prefer-interface': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/no-use-before-define': ['warn', {
