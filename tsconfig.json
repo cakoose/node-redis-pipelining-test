@@ -1,15 +1,13 @@
 {
+    "extends": "@tsconfig/node18-strictest",
     "compilerOptions": {
-        "target": "es6",
-        "lib": ["es6"],
-        "strict": true,
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "allowJs": false,
+        "outDir": "dist",
         "sourceMap": true,
-        "outDir": "./build"
+        "noUncheckedIndexedAccess": false, // Too annoying when array indexing has type "T | undefined".
+        "noUnusedLocals": false, // Let ESLint take care of this.
+        "noUnusedParameters": false, // Let ESLint take care of this.
     },
     "include": [
-        "main.ts"
-    ]
+        "src",
+    ],
 }

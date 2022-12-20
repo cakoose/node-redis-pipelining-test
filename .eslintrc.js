@@ -19,5 +19,11 @@ module.exports = {
         '@typescript-eslint/explicit-function-return-type': ['warn', {
             allowExpressions: true,
         }],
+        '@typescript-eslint/no-unused-vars': ['warn', {
+            args: 'all',
+            // Starts with an underscore, but don't match double underscore.
+            argsIgnorePattern: '^_(?!_)',
+            varsIgnorePattern: '^_(?!_)',
+        }],
     },
 };

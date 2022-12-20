@@ -11,57 +11,50 @@ The results I got suggest that yes, it's better to use a single shared connectio
 # To run
 
 1. Download dependencies: `yarn install`
-2. Make sure Redis is running.
-3. Run benchmark: `yarn run bench`
+2. Build: `yarn run build`
+3. Make sure Redis is running.
+4. Run benchmark: `yarn run main`
 
 # Results
 
-MacBook Pro 15" 2017
+MacBook Pro 16" 2019 (Intel)
 
 ```
-CPU        8x Intel(R) Core(TM) i7-7920HQ CPU @ 3.10GHz
-Node       8.15.0
-V8         6.2.414.75
-OS         darwin, 18.7.0
-NPM redis  2.8.0
+CPU   12x Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+Node  18.12.1
+V8    10.2.154.15-node.12
+OS    darwin, 21.6.0
+
+NPM @redis/client 1.4.2
 
 Setting up 8 Redis clients.
-Connected to Redis 5.0.5.
+Connected to Redis 6.2.8.
 
-Running each configuration 3 times (after a warm-up run).
 Reporting the results for each configuration on a single line.
-Result format: task-elapsed-ms-average (slowest-fastest-task-difference-ms)
+Running each configuration 3 times (after a warm-up run).
+Each run's results are reported as: average-ms ↕min-max-diff-ms
 
-10-char K/V, (33277 iterations)
-  2 tasks
-    1909 (0) 1823 (0) 1802 (0), shared connection
-    1786 (1) 1957 (2) 1878 (1), connection per task
-  4 tasks
-    2428 (0) 2494 (0) 2493 (0), shared connection
-    3223 (95) 3300 (46) 3114 (70), connection per task
-  8 tasks
-    4019 (0) 4054 (0) 4004 (0), shared connection
-    6105 (299) 5979 (456) 6085 (255), connection per task
+set+get, 20-char key, 10-char value, (~39,952 iterations)
+  2 concurrent tasks
+     2355 ↕0     2312 ↕0     2342 ↕0    | @redis/client, shared connection
+     2058 ↕1     2052 ↕1     2223 ↕2    | @redis/client, connection per task
+  8 concurrent tasks
+      900 ↕0      836 ↕0      840 ↕1    | @redis/client, shared connection
+     1776 ↕92    1741 ↕186   1730 ↕209  | @redis/client, connection per task
 
-1000-char K/V, (28571 iterations)
-  2 tasks
-    1646 (0) 1655 (0) 1641 (0), shared connection
-    1651 (1) 1621 (0) 1630 (2), connection per task
-  4 tasks
-    2235 (0) 2299 (0) 2279 (0), shared connection
-    3087 (159) 3116 (100) 2868 (106), connection per task
-  8 tasks
-    3847 (0) 3906 (1) 3820 (0), shared connection
-    5616 (313) 5674 (200) 5782 (230), connection per task
+set+get, 20-char key, 1,000-char value, (~38,431 iterations)
+  2 concurrent tasks
+     2328 ↕0     2395 ↕0     2489 ↕0    | @redis/client, shared connection
+     3348 ↕9     4238 ↕1     2596 ↕1    | @redis/client, connection per task
+  8 concurrent tasks
+     1014 ↕0     1008 ↕0     1013 ↕0    | @redis/client, shared connection
+     1961 ↕184   1971 ↕226   1942 ↕141  | @redis/client, connection per task
 
-100000-char K/V, (1886 iterations)
-  2 tasks
-    3627 (0) 3790 (0) 3823 (0), shared connection
-    3889 (1) 3840 (0) 3717 (31), connection per task
-  4 tasks
-    5211 (1) 5258 (0) 5222 (1), shared connection
-    6610 (855) 6411 (1311) 5345 (1298), connection per task
-  8 tasks
-    8764 (1) 9375 (1) 6241 (0), shared connection
-    11601 (1669) 12086 (1530) 11659 (1538), connection per task
+set+get, 100-char key, 10-char value, (~39,824 iterations)
+  2 concurrent tasks
+     2527 ↕0     2463 ↕0     2430 ↕0    | @redis/client, shared connection
+     2166 ↕1     2132 ↕1     2108 ↕0    | @redis/client, connection per task
+  8 concurrent tasks
+      800 ↕0      799 ↕0      797 ↕0    | @redis/client, shared connection
+     1688 ↕144   1706 ↕94    1777 ↕70   | @redis/client, connection per task
 ```
