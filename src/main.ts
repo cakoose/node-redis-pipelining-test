@@ -26,7 +26,7 @@ async function makeIoredisClientAsync(port: number | null): Promise<ClientInterf
 
 const clientConstructors: ReadonlyArray<readonly [packageName: string, constructAsync: (port: number | null) => Promise<ClientInterface>]> = [
     ['@redis/client', makeNodeRedisClientAsync] as const,
-    //['ioredis', makeIoredisClientAsync] as const,
+    ['ioredis', makeIoredisClientAsync] as const,
 ];
 
 async function mainAsync(progName: string, args: Array<string>): Promise<void> {
@@ -178,7 +178,8 @@ function printSystemInformation(): void {
     console.log(`OS    ${os.platform()}, ${os.release()}`);
     console.log();
     for (const [packageName, _constructAsync] of clientConstructors) {
-        console.log(`NPM ${packageName} ${require(`${packageName}/package.json`).version}`); // eslint-disable-line @typescript-eslint/no-var-requires
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
+        console.log(`NPM ${packageName} ${require(`${packageName}/package.json`).version}`);
     }
 }
 
