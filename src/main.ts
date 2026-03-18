@@ -87,7 +87,7 @@ async function mainAsync(progName: string, args: Array<string>): Promise<void> {
         const pseudoBytesPerIteration = (keySize*2) + (valueSize*2) + (overheadPseudoBytesPerOperation*2);
         const numIterations = Math.floor(totalBytesPerTest / pseudoBytesPerIteration);
 
-        console.log(`set+get, ${keySize.toLocaleString()}-char key, ${valueSize.toLocaleString()}-char value, (~${numIterations.toLocaleString()} iterations)`);
+        console.log(`set+get, ${keySize.toLocaleString()}-char key, ${valueSize.toLocaleString()}-char value (${numIterations.toLocaleString()} iterations)`);
 
         for (const numTasks of numTasksToTest) {
             console.log(`  ${numTasks.toLocaleString()} concurrent tasks`);
@@ -155,7 +155,7 @@ async function benchAsync(
         // Report the max time and the difference between the min and max.
         const meanMs = Math.floor(elapsedMses.reduce((a, b) => a + b) / elapsedMses.length);
         const rangeMs = Math.max(...elapsedMses) - Math.min(...elapsedMses);
-        elapsedMsRanges.push(`${String(meanMs).padStart(5, ' ')} ↕${String(rangeMs).padEnd(4, ' ')}`);
+        elapsedMsRanges.push(`${String(meanMs).padStart(5, ' ')} ±${String(rangeMs).padEnd(4, ' ')}`);
     }
     // Consider the first run a warm-up.  Don't include it in the results.
     return elapsedMsRanges.slice(1).join(' ');
