@@ -1,5 +1,6 @@
 import * as redis from '@redis/client';
 import Ioredis from 'ioredis';
+import {GlideClient} from '@valkey/valkey-glide';
 import * as os from 'os';
 import assert from 'assert';
 
@@ -24,9 +25,25 @@ async function makeIoredisClientAsync(port: number | null): Promise<ClientInterf
     return client;
 }
 
+async function makeValkeyGlideClientAsync(port: number | null): Promise<ClientInterface> {
+    const resolvedPort = port ?? 6379;
+    const client = await GlideClient.createClient({
+        addresses: [{ host: 'localhost', port: resolvedPort }],
+    });
+    return {
+        info: () => client.info(),
+        set: (key: string, value: string) => client.set(key, value),
+        get: async (key: string) => {
+            const result = await client.get(key);
+            return result === null ? null : String(result);
+        },
+    };
+}
+
 const clientConstructors: ReadonlyArray<readonly [packageName: string, constructAsync: (port: number | null) => Promise<ClientInterface>]> = [
     ['@redis/client', makeNodeRedisClientAsync] as const,
     ['ioredis', makeIoredisClientAsync] as const,
+    ['@valkey/valkey-glide', makeValkeyGlideClientAsync] as const,
 ];
 
 async function mainAsync(progName: string, args: Array<string>): Promise<void> {
@@ -178,9 +195,16 @@ function printSystemInformation(): void {
     console.log(`OS    ${os.platform()}, ${os.release()}`);
     console.log();
     for (const [packageName, _constructAsync] of clientConstructors) {
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
-        console.log(`NPM ${packageName} ${require(`${packageName}/package.json`).version}`);
+        console.log(`NPM ${packageName} ${getPackageVersion(packageName)}`);
     }
+}
+
+import pnpapi from 'pnpapi';
+
+function getPackageVersion(packageName: string): string {
+    const locator = pnpapi.findPackageLocator(require.resolve(packageName));
+    const match = locator?.reference?.match(/^npm:(.+)$/);
+    return match?.[1] ?? 'unknown';
 }
 
 const digits = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVXYZ';

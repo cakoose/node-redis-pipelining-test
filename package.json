@@ -11,22 +11,24 @@
     "author": "Kannan Goundan <kannan@cakoose.com>",
     "license": "CC0-1.0",
     "dependencies": {
-        "@redis/client": "^5.11.0",
-        "ioredis": "^5.10.0"
+        "@redis/client": "^5.12.1",
+        "@valkey/valkey-glide": "^2.3.1",
+        "ioredis": "^5.10.1"
     },
     "devDependencies": {
         "@eslint/js": "^10.0.1",
         "@tsconfig/node22": "^22.0.5",
         "@tsconfig/strictest": "^2.0.8",
-        "@types/node": "^22.19.15",
-        "@typescript-eslint/eslint-plugin": "^8.57.1",
-        "@typescript-eslint/parser": "^8.57.1",
-        "eslint": "^10.0.3",
-        "typescript": "^5.9.3"
+        "@types/node": "^22.19.17",
+        "@types/pnpapi": "^0.0.5",
+        "@typescript-eslint/eslint-plugin": "^8.59.0",
+        "@typescript-eslint/parser": "^8.59.0",
+        "eslint": "^10.2.1",
+        "typescript": "^6.0.3"
     },
     "volta": {
-        "node": "22.22.1",
-        "yarn": "1.22.19"
+        "node": "24.14.1",
+        "yarn": "1.22.22"
     },
     "packageManager": "yarn@4.13.0"
 }

@@ -1,7 +1,9 @@
 {
     "extends": ["@tsconfig/node22", "@tsconfig/strictest"],
     "compilerOptions": {
+        "rootDir": "src",
         "outDir": "dist",
+        "tsBuildInfoFile": "dist/tsbuildinfo.json",
         "sourceMap": true,
         "noUncheckedIndexedAccess": false, // Too annoying when array indexing has type "T | undefined".
         "noUnusedLocals": false, // Let ESLint take care of this.
